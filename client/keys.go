@@ -432,7 +432,7 @@ func (k *Key) Quote(selpcr tpm2.PCRSelection, extraData []byte) (*pb.Quote, erro
 	}
 
 	quote := &pb.Quote{}
-	quote.Quote, quote.RawSig, err = tpm2.QuoteRaw(k.rw, k.Handle(), "", "", extraData, selpcr, tpm2.AlgNull)
+	quote.Quote, quote.RawSig, err = tpm2.QuoteRaw(k.rw, k.Handle(), "", "", extraData, []tpm2.PCRSelection{selpcr}, tpm2.AlgNull)
 	if err != nil {
 		return nil, fmt.Errorf("failed to quote: %w", err)
 	}
